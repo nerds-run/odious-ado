@@ -1,0 +1,10 @@
+---
+name: 'odious-ado'
+author: 'github'
+description: 'A GitHub Action to say good bye to ADO projects. Hello, Github'
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/github/odious_ado:v1'
+branding:
+  icon: 'hard-drive'
+  color: 'red'
