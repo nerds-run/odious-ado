@@ -4,6 +4,7 @@ import sys
 from azure.devops.connection import Connection
 from msrest.authentication import BasicAuthentication
 from azure.devops.v7_1.work_item_tracking import WorkItemTrackingClient, CommentList, CommentCreate
+from azure.devops.v7_1.work_item_tracking.models import Wiql
 
 import pprint
 from odious_ado.settings import BaseConfig
@@ -33,7 +34,13 @@ class AdoClient:
 
     @property
     def get_work_item_client(self):
-        return self._work_item_client
+        # TODO: Change the following string formatting to not be absolute ass
+        wiql_query = "SELECT \n    [System.Id],\n    [System.WorkItemType],\n    [System.Title],\n    [System.State],\n    [System.Tags]\nFROM workitems\nWHERE\n    [System.TeamProject] = '" + "os.getenv('OA_ADO_PROJECT_NAME', '')" + "'\n    AND [System.WorkItemType] IN ('User Story', 'Bug', 'Task')\n"
+        wit_client = self._connection.clients.get_work_item_tracking_client()
+        query_wiql = Wiql(query=wiql_query)
+        results = wit_client.query_by_wiql(query_wiql).work_items
+        work_items = (wit_client.get_work_items(int(result.id)) for result in results)
+        return work_items
 
     # def get_comments(self):
     #     return self._comments

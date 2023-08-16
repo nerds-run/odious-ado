@@ -4,17 +4,10 @@ from client import AdoClient
 
 def Get_ADO_State(ADO_ID):
     # Get State
-    OA_ADO_PROJECT_NAME: str = os.getenv("OA_ADO_PROJECT_NAME", "")
-    client = ctx.obj.get("client")
-    if client is None:
-        click.secho("Unable to get ado client.")
-    else:
-        get_projects_response = client.get_core_client.get_projects()
-        if isinstance(get_projects_response, list):
-            get_projects_response = None
-        for i in client.get_work_item_client.get_recent_activity_data():
-            if i.team_project == OA_ADO_PROJECT_NAME & i.id == ADO_ID:
-                state = i.state
+    work_items = AdoClient.get_work_item_client
+    for i in work_items:
+        if i.fields["System.Id"] == ADO_ID:
+            State = i.fields["System.State"]
     return State
 
 def Set_ADO_State(ADO_ID, State):
