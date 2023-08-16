@@ -9,7 +9,7 @@ from azure.devops.v7_1.work_item_tracking import CommentCreate
 
 from odious_ado.settings import BaseConfig
 from odious_ado.plugins.ado import AdoClient
-
+from odious_ado.plugins import gh
 
 @click.group(name="ado")
 @click.pass_context
@@ -54,7 +54,7 @@ def list_projects(ctx):
         # click.secho(tabulate(results, headers="keys", tablefmt="psql"))=
         get_projects_response = client.get_core_client.get_projects()
         index = 0
-
+        gh_client = gh.get_client()
         while get_projects_response is not None:
             for project in get_projects_response:
                 pprint("[" + str(index) + "] " + project.name)
@@ -79,13 +79,15 @@ def list_projects(ctx):
 
             c = client.get_work_item_client.get_comments(i.team_project, i.id)
 
-            # new_msg = CommentCreate("test for the hackathon!")
+            msg = gh.pull_request_comment(gh_client)
+
+            new_msg = CommentCreate(msg)
             #
-            # blrg = client.get_work_item_client.add_comment(new_msg, i.team_project, i.id)
+            client.get_work_item_client.add_comment(new_msg, i.team_project, i.id)
 
             # pprint(blrg.as_dict())
 
-            pprint(c.as_dict())
+            # pprint(c.as_dict())
 
             # pprint.pprint(dir(i))
         #

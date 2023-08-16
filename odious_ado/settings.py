@@ -34,7 +34,7 @@ class BaseConfig(BaseSettings):
     PYROSCOPE_TAGS: dict = {"region": f'{os.getenv("REGION", "localhost")}'}
 
     # Github Settings
-    GITHUB_ACCESS_TOKEN: str = Field(..., env='OA_GITHUB_ACCESS_TOKEN')
+    GITHUB_ACCESS_TOKEN: str = Field(..., env='OA_GITHUB_TOKEN')
 
     # Azure Settings
     ADO_PAT: str = os.getenv("OA_ADO_PAT")

@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 from odious_ado import __version__
 
 from odious_ado.cli.ado import ado as ado_commands
+from odious_ado.cli.gh import github as gh_commands
+
 
 
 
@@ -39,3 +41,5 @@ def version(ctx):
 
 
 main.add_command(ado_commands, "ado")
+main.add_command(gh_commands, "gh")
+
