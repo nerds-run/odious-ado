@@ -1,0 +1,13 @@
+--- Mapping # ADO State: GitHub status
+  # ADO states listed here are the default states for newly created ADO AA projects, so you should not have to add new rows
+  New: null
+  Approved: Todo
+  Active: In Progress
+  Resolved: Done
+  Committed: Todo
+  Done: Done
+  Blocked: In Progress
+  Accepted: Todo
+  Closed: Done
+  Removed: null
+  Archived: null
