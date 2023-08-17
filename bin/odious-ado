@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Command Line Interface
+for winders `python ./bin/odious-ado`
+
+NOTE: if running locally, make sure to comment out any references to `uvloop`, which is not supported
+"""
+
+import os
+import sys
+import click
+from dotenv import load_dotenv
+
+sys.path.append(os.path.realpath(os.path.join(os.path.dirname(__file__), '..')))
+
+from odious_ado.cli.commands import gh_commands, ado_commands, main
+
+CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
+
+if __name__ == "__main__":
+    main()
