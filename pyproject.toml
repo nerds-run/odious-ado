@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "odious-ado"
+name = "odious_ado"
 version = "0.1.0"
 description = ""
 authors = ["abanna <abanna@nerds.run>"]
@@ -75,7 +75,7 @@ pytest-cov = "*"
 locust = "*"
 
 [tool.poetry.scripts]
-odious-ado = "odious_ado.cli:main"
+odious_ado = "odious_ado.cli:main"
 
 [build-system]
 requires = ["poetry-core"]
