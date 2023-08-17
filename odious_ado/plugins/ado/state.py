@@ -3,18 +3,20 @@ import yaml
 from client import AdoClient
 from azure.devops.v7_1.work_item_tracking.models import JsonPatchOperation
 
-def Get_ADO_State(ADO_ID:int):
+def get_ADO_state(ADO_ID:int):
     # Get State
     Connector = AdoClient()
     ADO_Item = Connector.get_work_item_by_id(ADO_ID)
     State = ADO_Item.fields["System.State"]
     return State
 
-def Set_ADO_State(ADO_ID, State):
+def set_ADO_state(ADO_ID, State):
     # Get Current ADO State
-    ADO_State = Get_ADO_State(ADO_ID)
-    # If needed, set the ADO state
+    ADO_State = get_ADO_state(ADO_ID)
+    # If state is different, set state
     if ADO_State != State:
+        #TODO: Add check to make sure state is valid
+
         # Set up update payload
         update_doc = [ 
             JsonPatchOperation(
@@ -25,9 +27,4 @@ def Set_ADO_State(ADO_ID, State):
         ]
         Connector = AdoClient()
         Connector.set_work_item_by_id(ADO_ID, update_doc)
-        print("Success!")
     return
-
-print(Get_ADO_State(921938))
-Set_ADO_State(921938, "Resolved")
-print(Get_ADO_State(921938))
