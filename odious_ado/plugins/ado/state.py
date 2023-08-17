@@ -15,8 +15,7 @@ def set_ADO_state(ADO_ID, State):
     ADO_State = get_ADO_state(ADO_ID)
     # If state is different, set state
     if ADO_State != State:
-        #TODO: Add check to make sure state is valid
-
+        # TODO: Check to make sure state is valid by loading the mapping
         # Set up update payload
         update_doc = [ 
             JsonPatchOperation(
