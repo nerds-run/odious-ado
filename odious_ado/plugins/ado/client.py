@@ -80,12 +80,12 @@ class AdoClient:
 #
 #     return aws_accounts
 
-update_doc = [ 
-    JsonPatchOperation(
-        op="add",
-        path="/fields/System.Description",
-        value={
-            "text": "I updated this from a script!",
-        },
-    )
-]
+# update_doc = [ 
+#    JsonPatchOperation(
+#        op="add",
+#        path="/fields/System.Description",
+#        value={
+#            "text": "I updated this from a script!",
+#        },
+#    )
+#]
