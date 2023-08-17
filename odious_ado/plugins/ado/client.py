@@ -66,6 +66,11 @@ class AdoClient:
         wit_client = self._connection.clients.get_work_item_tracking_client()
         work_item = wit_client.get_work_item(id)
         return work_item
+
+    def set_work_item_by_id(self,id:int, update_package):
+        wit_client = self._connection.clients.get_work_item_tracking_client()
+        work_item = wit_client.update_work_item(update_package,id)
+        return work_item
     # def get_comments(self):
     #     return self._comments
 
@@ -79,13 +84,3 @@ class AdoClient:
 #             aws_accounts[account.get('Name')] = account.get('Id')
 #
 #     return aws_accounts
-
-# update_doc = [ 
-#    JsonPatchOperation(
-#        op="add",
-#        path="/fields/System.Description",
-#        value={
-#            "text": "I updated this from a script!",
-#        },
-#    )
-#]
