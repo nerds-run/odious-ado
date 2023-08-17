@@ -11,6 +11,7 @@ from odious_ado.settings import BaseConfig
 from odious_ado.plugins.ado import AdoClient
 from odious_ado.plugins import gh
 
+
 @click.group(name="ado")
 @click.pass_context
 def ado(ctx):
@@ -71,19 +72,19 @@ def list_projects(ctx):
             #         # All projects have been retrieved
             #
 
-        for i in client.get_work_item_client.get_recent_activity_data():
-            print(i.id)
-            pprint(i.title)
-            pprint(i.team_project)
-            pprint(i.identity_id)
-
-            c = client.get_work_item_client.get_comments(i.team_project, i.id)
-
-            msg = gh.pull_request_comment(gh_client)
-
-            new_msg = CommentCreate(msg)
-            #
-            client.get_work_item_client.add_comment(new_msg, i.team_project, i.id)
+        # for i in client.get_work_item_client.get_recent_activity_data():
+        #     print(i.id)
+        #     pprint(i.title)
+        #     pprint(i.team_project)
+        #     pprint(i.identity_id)
+        #
+        #     c = client.get_work_item_client.get_comments(i.team_project, i.id)
+        #
+        #     msg = gh.pull_request_comment(gh_client)
+        #
+        #     new_msg = CommentCreate(msg)
+        #     #
+        #     client.get_work_item_client.add_comment(new_msg, i.team_project, i.id)
 
             # pprint(blrg.as_dict())
 

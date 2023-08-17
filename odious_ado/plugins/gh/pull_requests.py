@@ -14,7 +14,9 @@ def get_client():
 
 
 def pull_request_comment(client) -> str:
-    repo = client.get_repo('nerds-run/odious-ado')
+    settings = BaseConfig.get_settings()
+
+    repo = client.get_repo(settings.GITHUB_REPOSITORY)
 
     pr = repo.get_pull(1)
 
@@ -40,4 +42,4 @@ def pull_request_comment(client) -> str:
 
     pr.create_issue_comment(msg)
 
-    return msg
+    return msgasdfasdf
