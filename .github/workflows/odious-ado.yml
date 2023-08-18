@@ -32,6 +32,6 @@
 #     - name: odious_ado
 #       uses: nerds-run/odious-ado@v1.1
 #       env:
-#         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         GH_TOKEN: ${{ secrets.OA_GITHUB_SECRET }}
 #         SEARCH_QUERY: 'repo:owner/repo is:issue -reason:"not planned"'
             
