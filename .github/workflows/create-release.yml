@@ -17,16 +17,16 @@ jobs:
     steps:
       - name: version
         run: echo "::set-output name=version::$(./bin/odious-ado --version)"    
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.OA_GITHUB_SECRET }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: v1.2 # move me
+          release_name: Release v1.2
           body: |
             Changes in this Release
             - what up!!
