@@ -59,7 +59,7 @@ def list_projects(gh_client):
     query($project_id: ID!){  
         node(id: $project_id) {
         ... on ProjectV2 {
-          fields(fiprst: 20) {
+          fields(first: 20) {
             nodes { 
               ... on ProjectV2Field {
                 id
