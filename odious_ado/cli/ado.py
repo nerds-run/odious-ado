@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
 import os
 from pprint import pprint
 import click
@@ -10,11 +9,6 @@ import click
 
 from odious_ado.settings import BaseConfig
 from odious_ado.plugins.ado import *
-from odious_ado.plugins import gh
-
-
-
-
 
 
 @click.group(name="ado")
@@ -47,8 +41,9 @@ def info(ctx) -> None:
 def work_items(ctx):
     pass
 
+
 @work_items.command("read-state")
-@click.argument('Item-ID')
+@click.argument("item_id", type=click.STRING, required=True)
 @click.pass_context
 def read_state(ctx,*args, **kwargs):
     client = ctx.obj.get("client")
@@ -64,7 +59,8 @@ def read_state(ctx,*args, **kwargs):
             click.secho("Unable to get ado client.")
         else:
             for work_item in work_item_array:
-                click.secho(work_item, ": ", get_ADO_state(work_item))
+                click.echo(f"{work_item} : {get_ADO_state(work_item)}")
+
 
 @ado.group("projects")
 @click.pass_context
@@ -80,12 +76,8 @@ def list_projects(ctx):
     if client is None:
         click.secho("Unable to get ado client.")
     else:
-        # click.secho(tabulate(results, headers="keys", tablefmt="psql"))=
         get_projects_response = client.get_core_client.get_projects()
-        # test = pprint(get_projects_response)#.toDict)
-        # print(dir(test))
         index = 0
-        # gh_client = gh.get_client()
         while get_projects_response is not None:
             for project in get_projects_response:
                 pprint("[" + str(index) + "] " + project.name)
@@ -93,33 +85,7 @@ def list_projects(ctx):
 
             if isinstance(get_projects_response, list):
                 get_projects_response = None
-<<<<<<< HEAD
 
-        #for i in client.get_work_item_client.get_recent_activity_data():
-        #    print(i.id)
-        #    pprint(i.title)
-        #    pprint(i.team_project)
-        #    pprint(i.identity_id)
-        #    print('---------------------------------')
-
-        #    c = client.get_work_item_client.get_comments(i.team_project, i.id)
-
-            # msg = gh.pull_request_comment(gh_client)
-
-            # new_msg = CommentCreate(msg)
-            #
-            # client.get_work_item_client.add_comment(new_msg, i.team_project, i.id)
-
-            # pprint(blrg.as_dict())
-
-            # pprint(c.as_dict())
-
-            # pprint.pprint(dir(i))
-        #
-        #     pprint.pprint(i.as_dict())
-
-            # pprint.pprint(dir(client.get_comments()))
-            # pprint.pprint(client.get_comments().as_dict())
 
 @projects.command("get-items")
 @click.pass_context
@@ -133,13 +99,14 @@ def get_items(ctx):
         get_projects_response = client.get_core_client.get_projects()
         if isinstance(get_projects_response, list):
             get_projects_response = None
+
         for i in client.get_work_item_client.get_recent_activity_data():
             if i.team_project == OA_ADO_PROJECT_NAME:
                 print(i.id)
                 pprint(i.title)
                 pprint(i.state)
                 pprint(i.identity_id)
-=======
+
             # else:
             #     if get_projects_response.continuation_token is not None and get_projects_response.continuation_token != "":
             #         # Get the next page of projects
@@ -147,4 +114,4 @@ def get_items(ctx):
             #             continuation_token=get_projects_response.continuation_token)
             #     else:
             #         # All projects have been retrieved
->>>>>>> 36882b9 (removing  comments)
+
