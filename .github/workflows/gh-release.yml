@@ -1,9 +1,15 @@
-name: Main
+name: main
 
 on:
   push:
     tags:
       - "v*"
+
+permissions:
+  issues: write
+  pull-requests: read
+  security-events: write      
+
 jobs:
   build:
     runs-on: ubuntu-latest
