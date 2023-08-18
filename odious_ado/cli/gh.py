@@ -55,8 +55,8 @@ def issue_labels(ctx):
 def apply_labels(ctx):
     settings = BaseConfig.get_settings()
     issues = gh.get_issues(ctx.obj['client'])
+
     for issue in issues:
-        # issue.
         issue.add_to_labels(f"{settings.ADO_ORG_ID}/{settings.OA_ADO_PROJECT_NAME}")
 
 
@@ -99,12 +99,25 @@ def issues_status(ctx, update: bool = False):
     project_list = gh.list_projects(ctx.obj.get('client'))
     gh_org, repo = settings.GITHUB_REPOSITORY.split('/')
     gh_issues = gh.get_i_issues(organization=gh_org, repository_name=repo)
+    print("-=-=-=-========-=-=-=-")
 
-    pprint(project_list)
-    print("-==-=--=-========-=-=-=-")
-    pprint(gh_issues)
-    print("-==-=--=-========-=-=-=-")
-    # gh.change_issue_status(project_id="", item_id="", field_id="", opt_id="")
+    print("-=-=-=-========-=-=-=-")
+
+    # pprint(dir(gh_issues))
+    # ($project_id: ID! $field_id: ID! $item_id: ID! $new_value: String!)
+    for i in gh_issues.values():
+        pprint(i)
+        sweet = [
+            {
+            "project_id": "PVT_kwDOB3mz7c4AUIpb",
+            "field_id": "PVTF_lADOB3mz7c4AUIpbzgM3Ptw",
+            "item_id" : 'a4bb9822',
+            "new_value": "poop"
+
+            }
+        ]
+
+        gh.update_field(sweet)
 
 
 @github.group("projects")
@@ -134,11 +147,13 @@ def add_issues_to_project(ctx):
     gh_org, repo = settings.GITHUB_REPOSITORY.split('/')
     gh_issue_ids = gh.get_i_issue_ids(organization=gh_org, repository_name=repo)
     project_id = gh.list_projects(client)
+    issues = gh.get_issues(ctx.obj['client'])
 
-    for issue_id in gh_issue_ids:
-        gh.add_issue_to_project(project_id=project_id, content_id=issue_id)
-        # gh.apply_label()
-        # gh.apply_label(client, project_id, item_id=issue_id)
+    for dnd in gh_issue_ids:
+        db_id, pvti = gh.add_issue_to_project(append_label=True, project_id=project_id, content_id=dnd)
+        for i in issues:
+            i.add_to_labels(pvti)
+            # pull_request_comment()
 
 
 @github.command('pull-request-comment')
@@ -226,5 +241,4 @@ def ls(ctx, csv_: bool):
             for user in users:
                 csv_writer.writerow(user)
     else:
-        click.echo(json.dumps(users))
-
+        click.secho(tabulate(users, headers="keys", tablefmt="psql"))

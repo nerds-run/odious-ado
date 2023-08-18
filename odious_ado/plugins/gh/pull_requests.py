@@ -18,6 +18,7 @@ def pull_request_comment(client) -> str:
 
     repo = client.get_repo(settings.GITHUB_REPOSITORY)
 
+    # ...
     pr = repo.get_pull(1)
 
     print(f"Pull Request: {pr.review_comments} Merge Commit ID: {pr.merge_commit_sha}")
@@ -41,5 +42,3 @@ def pull_request_comment(client) -> str:
     """
 
     pr.create_issue_comment(msg)
-
-    return msgasdfasdf
