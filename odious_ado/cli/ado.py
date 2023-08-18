@@ -7,8 +7,12 @@ from dotenv import load_dotenv
 from tabulate import tabulate
 from azure.devops.v7_1.work_item_tracking import CommentCreate
 
+#import sys
+#if "C:\\hackathon\\2023\\odious-ado" not in sys.path:
+#   sys.path.append("C:\\hackathon\\2023\\odious-ado")
+
 from odious_ado.settings import BaseConfig
-from odious_ado.plugins.ado import AdoClient
+from odious_ado.plugins.ado import *
 from odious_ado.plugins import gh
 
 
@@ -41,6 +45,29 @@ def info(ctx) -> None:
     # else:
     #     click.secho(tabulate(results, headers="keys", tablefmt="psql"))
 
+@ado.group("work-items")
+@click.pass_context
+def work_items(ctx):
+    pass
+
+@work_items.command("read-state")
+@click.argument('Item-ID')
+@click.pass_context
+def read_state(ctx,*args, **kwargs):
+    client = ctx.obj.get("client")
+    pprint(kwargs)
+    if len(kwargs) == 0:
+        click.secho("Work Item ID is required for this function")
+        return
+    work_item_array = []
+    for i,j in kwargs.items():
+        work_item_array.append(int(j))
+    if work_item_array is not None:
+        if client is None:
+            click.secho("Unable to get ado client.")
+        else:
+            for work_item in work_item_array:
+                click.secho(work_item, ": ", get_ADO_state(work_item))
 
 @ado.group("projects")
 @click.pass_context
@@ -58,8 +85,10 @@ def list_projects(ctx):
     else:
         # click.secho(tabulate(results, headers="keys", tablefmt="psql"))=
         get_projects_response = client.get_core_client.get_projects()
+        # test = pprint(get_projects_response)#.toDict)
+        # print(dir(test))
         index = 0
-        gh_client = gh.get_client()
+        # gh_client = gh.get_client()
         while get_projects_response is not None:
             for project in get_projects_response:
                 pprint("[" + str(index) + "] " + project.name)
@@ -67,28 +96,21 @@ def list_projects(ctx):
 
             if isinstance(get_projects_response, list):
                 get_projects_response = None
-            # else:
-            #     if get_projects_response.continuation_token is not None and get_projects_response.continuation_token != "":
-            #         # Get the next page of projects
-            #         get_projects_response = client.get_core_client.get_projects(
-            #             continuation_token=get_projects_response.continuation_token)
-            #     else:
-            #         # All projects have been retrieved
-            #
 
-        # for i in client.get_work_item_client.get_recent_activity_data():
-        #     print(i.id)
-        #     pprint(i.title)
-        #     pprint(i.team_project)
-        #     pprint(i.identity_id)
-        #
-        #     c = client.get_work_item_client.get_comments(i.team_project, i.id)
-        #
-        #     msg = gh.pull_request_comment(gh_client)
-        #
-        #     new_msg = CommentCreate(msg)
-        #     #
-        #     client.get_work_item_client.add_comment(new_msg, i.team_project, i.id)
+        #for i in client.get_work_item_client.get_recent_activity_data():
+        #    print(i.id)
+        #    pprint(i.title)
+        #    pprint(i.team_project)
+        #    pprint(i.identity_id)
+        #    print('---------------------------------')
+
+        #    c = client.get_work_item_client.get_comments(i.team_project, i.id)
+
+            # msg = gh.pull_request_comment(gh_client)
+
+            # new_msg = CommentCreate(msg)
+            #
+            # client.get_work_item_client.add_comment(new_msg, i.team_project, i.id)
 
             # pprint(blrg.as_dict())
 
@@ -100,3 +122,22 @@ def list_projects(ctx):
 
             # pprint.pprint(dir(client.get_comments()))
             # pprint.pprint(client.get_comments().as_dict())
+
+@projects.command("get-items")
+@click.pass_context
+def get_items(ctx):
+    # Gets states for items in ADO within the specified project in the .env
+    OA_ADO_PROJECT_NAME: str = os.getenv("OA_ADO_PROJECT_NAME", "")
+    client = ctx.obj.get("client")
+    if client is None:
+        click.secho("Unable to get ado client.")
+    else:
+        get_projects_response = client.get_core_client.get_projects()
+        if isinstance(get_projects_response, list):
+            get_projects_response = None
+        for i in client.get_work_item_client.get_recent_activity_data():
+            if i.team_project == OA_ADO_PROJECT_NAME:
+                print(i.id)
+                pprint(i.title)
+                pprint(i.state)
+                pprint(i.identity_id)

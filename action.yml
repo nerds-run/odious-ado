@@ -1,5 +1,5 @@
 ---
-name: 'odious-ado'
+name: 'odious_ado'
 author: 'github'
 description: 'A GitHub Action to say good bye to ADO projects. Hello, Github'
 runs:
