@@ -1,8 +1,12 @@
+#!/usr/bin/env python
 # # -*- coding: utf-8 -*-
 # """
 # Command Line Interface
 # """
+import sys
 import asyncio
+
+
 from multiprocessing import freeze_support
 import platform
 import sys
@@ -10,6 +14,7 @@ import sys
 from odious_ado.cli.commands import main
 
 import platform
+
 
 operating_system = platform.system()
 if operating_system.lower() == "linux":
