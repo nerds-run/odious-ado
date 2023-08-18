@@ -92,6 +92,7 @@ def read_state(ctx,*args, **kwargs):
         if client is None:
             click.secho("Unable to get ado client.")
         else:
+
             click.echo(f"{v} : {get_ADO_effort(v)}")
 
 @ado.group("projects")

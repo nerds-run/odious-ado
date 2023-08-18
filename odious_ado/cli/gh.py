@@ -110,7 +110,8 @@ def issues_status(ctx, update: bool = False):
         sweet = [
             {
             "project_id": "PVT_kwDOB3mz7c4AUIpb",
-            "field_id": "PVTF_lADOB3mz7c4AUIpbzgM3PuM",
+
+            "field_did": "PVTF_lADOB3mz7c4AUIpbzgM3PuM",
             "item_id": 'a4bb9822',
             "new_value": "poop"
 
@@ -149,6 +150,8 @@ def add_issues_to_project(ctx):
     gh_issue_ids = gh.get_i_issue_ids(organization=gh_org, repository_name=repo)
     project_id = gh.list_projects(client)
     issues = gh.get_issues(ctx.obj['client'])
+
+
 
     for dnd in gh_issue_ids:
         db_id, pvti = gh.add_issue_to_project(append_label=True, project_id=project_id, content_id=dnd)

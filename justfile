@@ -14,6 +14,7 @@ api_path := join(project_path, 'api')
 # need to add readme to docs and run a full suite of test etc
 # absolute_path  parent_directory justfile_directory
 # https://github.com/python-poetry/poetry python package and venv manager.
+# https://unicode.org/emoji/charts/emoji-list.html#1fae1 emoji's
 ###
 bt := '0'
 
@@ -31,6 +32,10 @@ python:
 @dev deps="install":
     pip install poetry pip pre-commit --upgrade
     poetry install --with docs
+
+build deps="yes": (dev deps)
+    @echo "building wheel"
+    poetry build
 
 set-hooks: dev
     poetry run pre-commit install --install-hooks # uninstall: `pre-commit uninstall`

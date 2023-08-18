@@ -1,7 +1,6 @@
-import yaml
-# from pprint import pprint
-from odious_ado.plugins.ado.client import AdoClient
 from azure.devops.v7_1.work_item_tracking.models import JsonPatchOperation
+from odious_ado.plugins.ado.client import AdoClient
+
 
 def get_ADO_state(ADO_ID:int):
     # Get State
@@ -10,9 +9,11 @@ def get_ADO_state(ADO_ID:int):
     State = ADO_Item.fields["System.State"]
     return State
 
+
 def set_ADO_state(ADO_ID, State):
     # Get Current ADO State
     ADO_State = get_ADO_state(ADO_ID)
+
     # If state is different, set state
     if ADO_State != State:
         # TODO: Check to make sure state is valid by loading the mapping
