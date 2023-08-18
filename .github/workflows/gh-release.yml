@@ -1,9 +1,13 @@
 name: Main
 
+name: Adious-ado
 on:
   push:
-    tags:
-      - "v*"
+    branches: [ main ]
+      tags:
+        - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+  fork:
+    branches: [ main ]        
 
 permissions:
   issues: write
