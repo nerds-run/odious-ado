@@ -40,7 +40,7 @@ class AdoClient:
     def get_work_item_client(self):
         # TODO: Change the following string formatting to not be less ass
         # TODO, this is currently broken, but I don't think we need to use it for our MVP, so abandoning in place
-        wiql_query = """SELECT 
+        wiql_query = f"""SELECT 
             [System.Id],
             [System.WorkItemType],
             [System.Title],
@@ -53,7 +53,9 @@ class AdoClient:
         wit_client = self._connection.clients.get_work_item_tracking_client()
         query_wiql = Wiql(query=wiql_query)
         results = wit_client.query_by_wiql(query_wiql).work_items
-        # Current issue is that while the results we get back are a list, if we want any useful information from them beside IDs we need to iterate through the list here and grab the info we want to pass back up in a new list, but it isn't working for some reason.  This is a very long comment
+        # Current issue is that while the results we get back are a list, if we want any useful information from them
+        # beside IDs we need to iterate through the list here and grab the info we want to pass back up in a new list,
+        # but it isn't working for some reason.  This is a very long comment
 
         # 2 different attempts at doing the above
 
