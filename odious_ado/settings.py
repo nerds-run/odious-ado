@@ -32,7 +32,7 @@ class BaseConfig(BaseSettings):
     PYROSCOPE_TAGS: dict = {"region": f'{os.getenv("REGION", "localhost")}'}
 
     # Github Settings
-    GITHUB_ACCESS_TOKEN: str = Field(..., env='OA_GITHUB_TOKEN')
+    GITHUB_ACCESS_TOKEN: str = Field(..., env='OA_GITHUB_SECRET')
     GITHUB_REPOSITORY: str ='nerds-run/odious-ado'
     # Azure Settings
     ADO_PAT: str = os.getenv("OA_ADO_PAT")
