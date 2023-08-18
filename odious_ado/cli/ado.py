@@ -64,6 +64,16 @@ def read_state(ctx,*args, **kwargs):
         else:
             click.echo(f"{v} : {get_ADO_state(v)}")
 
+@work_items.command("set-state")
+@click.argument("args", type=click.STRING, required=True, nargs=2)
+@click.pass_context
+def set_state(ctx,*args, **kwargs):
+    client = ctx.obj.get("client")
+    v = kwargs['args'][0]
+    w = kwargs['args'][1]
+    click.echo(f"{v, w} : {set_ADO_state(v,w)}")
+
+
 @work_items.command("read-effort")
 @click.argument("item_id", type=click.STRING, required=True)
 @click.pass_context

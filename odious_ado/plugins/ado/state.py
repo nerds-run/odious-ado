@@ -26,4 +26,4 @@ def set_ADO_state(ADO_ID, State):
         ]
         Connector = AdoClient()
         Connector.set_work_item_by_id(ADO_ID, update_doc)
-    return
+    return ADO_ID
