@@ -7,8 +7,9 @@ on:
 
 permissions:
   issues: write
-  pull-requests: read
-  security-events: write  
+  pull-requests: write
+  security-events: writ
+  contents: write
 
 jobs:
   build:

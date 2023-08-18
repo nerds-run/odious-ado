@@ -6,8 +6,9 @@ on:
 
 permissions:
   issues: write
-  pull-requests: read
+  pull-requests: write
   security-events: write
+  contents: write  
   
 name: Create Release
 
@@ -24,8 +25,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.OA_GITHUB_SECRET }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v1.3
-          release_name: v1.3
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           body: |
             Changes in this Release
             - what up!!
