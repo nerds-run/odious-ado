@@ -1,8 +1,6 @@
 ---
 
 name: Main
-
-name: Adious-ado
 on:
   push:
     branches: [ main ]
