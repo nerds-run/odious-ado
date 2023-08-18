@@ -51,4 +51,3 @@ class BaseConfig():
     def get_settings(cls, **overrides):
         # TODO: override settings that are passed and look up env vars to override values
         return cls(**overrides)
-

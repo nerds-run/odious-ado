@@ -1,0 +1,31 @@
+---
+
+name: GH-Release
+
+on:
+  push:
+    branches: [ main ]
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v1.*' # Push events to matching v1*, i.e. v1.0, v20.15.10
+
+permissions:
+  issues: write
+  pull-requests: read
+  security-events: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Release
+        uses: softprops/action-gh-release@v1
+      - name: Release
+        uses: nerds-run/odious-ado@v1.3
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            Release.txt
+            LICENSE
