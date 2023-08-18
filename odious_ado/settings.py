@@ -3,14 +3,14 @@ import os
 from functools import lru_cache
 
 from dotenv import load_dotenv
-from pydantic import BaseSettings
-from pydantic.fields import Field
+# from pydantic import BaseSettings
+# from pydantic.fields import Field
 
 from odious_ado import __name__ as app_name
 from odious_ado import __version__ as app_version
 
 
-class BaseConfig(BaseSettings):
+class BaseConfig():
     APP_NAME: str = app_name
     APP_ROOT: str = os.path.realpath(
         os.path.join(
@@ -32,7 +32,7 @@ class BaseConfig(BaseSettings):
     PYROSCOPE_TAGS: dict = {"region": f'{os.getenv("REGION", "localhost")}'}
 
     # Github Settings
-    GITHUB_ACCESS_TOKEN: str = Field(..., env='OA_GITHUB_SECRET')
+    GITHUB_ACCESS_TOKEN: str = os.getenv('OA_GITHUB_TOKEN', os.getenv('GITHUB_TOKEN'))
     GITHUB_REPOSITORY: str ='nerds-run/odious-ado'
     # Azure Settings
     ADO_PAT: str = os.getenv("OA_ADO_PAT")
@@ -51,4 +51,3 @@ class BaseConfig(BaseSettings):
     def get_settings(cls, **overrides):
         # TODO: override settings that are passed and look up env vars to override values
         return cls(**overrides)
-
