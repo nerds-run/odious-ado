@@ -31,6 +31,6 @@ jobs:
           release_name: Release ${{ github.ref }}
           body: |
             Changes in this Release
-            - initial
+            - what up!!
           draft: false
           prerelease: true
