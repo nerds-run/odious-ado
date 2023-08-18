@@ -150,6 +150,8 @@ def add_issues_to_project(ctx):
     project_id = gh.list_projects(client)
     issues = gh.get_issues(ctx.obj['client'])
 
+
+
     for dnd in gh_issue_ids:
         db_id, pvti = gh.add_issue_to_project(append_label=True, project_id=project_id, content_id=dnd)
         for i in issues:

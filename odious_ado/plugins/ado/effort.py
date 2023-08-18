@@ -1,7 +1,6 @@
-import yaml
-# from pprint import pprint
 from odious_ado.plugins.ado.client import AdoClient
 from azure.devops.v7_1.work_item_tracking.models import JsonPatchOperation
+
 
 def get_ADO_effort(ADO_ID:int):
     # Get Effort

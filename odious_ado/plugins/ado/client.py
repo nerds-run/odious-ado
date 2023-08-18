@@ -1,5 +1,4 @@
 import os
-import sys
 
 from azure.devops.connection import Connection
 from msrest.authentication import BasicAuthentication
@@ -7,12 +6,13 @@ from azure.devops.v7_1.work_item_tracking import WorkItemTrackingClient, Comment
 from azure.devops.v7_1.work_item_tracking.models import Wiql
 from azure.devops.v7_1.work_item_tracking.models import JsonPatchOperation
 
-import pprint
+
 # The following 2 lines are for Patrick to debug on his laptop.  Everyone else leave them commented out.  and yes, this is hella jank
 #if "C:\\hackathon\\2023\\odious-ado" not in sys.path:
 #   sys.path.append("C:\\hackathon\\2023\\odious-ado")
 from odious_ado.settings import BaseConfig
-# import odious_ado
+
+
 
 class AdoClient:
     def __init__(self):

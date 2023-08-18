@@ -18,32 +18,36 @@ RUN set -ex && \
     pip install --upgrade pip poetry --no-cache && \
     just dev install && \
     apt purge -y --auto-remove $build_deps && \
+    poetry build && \
     rm -rf /var/lib/apt/lists/*
-
-
 
 VOLUME /tmp
 
-CMD ["just", "-l"]
+RUN just build
 
+################################
+FROM python:3.11.4-slim-bookworm
 
+# Application environment variables.
+ENV APP_NAME="odious"
+ENV REFRESHED_AT="2023/08/18"
+ENV USER="odious"
+ENV HOME="/app"
 
+RUN set -ex && \
+    apt-get update -y && \
+    apt-get upgrade -y && \
+    mkdir -p $HOME && \
+    groupadd -r $USER &&  \
+    useradd --no-log-init -r -g $USER $USER && \
+    chown -R $USER $HOME && \
+    rm -f /tmp/*
 
+COPY --from=builder --chown=$USER /tmp/dist/ /tmp/dist
 
+RUN pip install /tmp/dist/odious_ado-0.1.0-py3-none-any.whl
 
+USER $USER
+WORKDIR $HOME
 
-#FROM builder
-#
-#ENTRYPOINT ["python3", "--version"]
-#
-#
-
-
-
-
-
-
-
-
-
-
+ENTRYPOINT ["odious-ado"]

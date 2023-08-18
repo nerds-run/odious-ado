@@ -42,7 +42,7 @@ python-dotenv = "*"
 
 #pydantic = "^1"
 pydantic-settings="*"
-emoji = "^2.8.0"
+emoji = "^2.8.0
 
 [tool.poetry.group.docs]
 optional = true
