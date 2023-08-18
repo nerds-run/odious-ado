@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "odious_ado"
-version = "0.1.0"
-description = ""
+name = $(odious-ado)
+version = $(0.1.0)
+description = $()
 authors = ["abanna <abanna@nerds.run>"]
 maintainers = ["abanna <abanna@nerds.run>"]
 readme = "README.md"
@@ -26,8 +26,8 @@ click = "*"
 colorama = "*"
 cryptography = "*"
 jinja2 = "*"
-#pytz = "*"
-#pydantic = {extras = ["email", "typing_extensions", "dotenv"], version = "*"}
+pytz = "*"
+pydantic = {extras = ["email", "typing_extensions", "dotenv"], version = "*"}
 ## Github API library
 # https://github.com/PyGithub/PyGithub
 PyGithub = "*"
@@ -76,7 +76,7 @@ pytest-cov = "*"
 locust = "*"
 
 [tool.poetry.scripts]
-odious_ado = "odious_ado.cli:main"
+odious-ado = "odious_ado.cli:main"
 
 [build-system]
 requires = ["poetry-core"]

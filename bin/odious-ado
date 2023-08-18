@@ -10,9 +10,6 @@ from multiprocessing import freeze_support
 import platform
 import sys
 
-if "C:\\Users\\nikob\\source\\repos\\blackcodeking\\alaska_hackathon\\odious-ado" not in sys.path:
-    sys.path.append("C:\\Users\\nikob\\source\\repos\\blackcodeking\\alaska_hackathon\\odious-ado")
-
 
 from odious_ado.cli.commands import main
 

@@ -1,6 +1,6 @@
-FROM       python:3.11.4-slim-bookworm AS builder
-MAINTAINER nerds.run
-ENV        REFRESHED_AT 2023/08/11
+FROM    python:3.11.4-slim-bookworm AS builder
+LABEL   org.opencontainers.image.authors="nerds.run"
+ENV     REFRESHED_AT 2023/08/11
 
 ADD . /tmp
 WORKDIR /tmp
@@ -31,13 +31,3 @@ CMD ["just", "-l"]
 #ENTRYPOINT ["python3", "--version"]
 #
 #
-
-
-
-
-
-
-
-
-
-
