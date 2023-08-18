@@ -64,7 +64,6 @@ def read_state(ctx,*args, **kwargs):
         else:
             click.echo(f"{v} : {get_ADO_state(v)}")
 
-
 @ado.group("projects")
 @click.pass_context
 def projects(ctx):

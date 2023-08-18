@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "odious_ado"
-version = "0.1.0"
-description = ""
+name = $(odious-ado)
+version = $(0.1.0)
+description = $()
 authors = ["abanna <abanna@nerds.run>"]
 maintainers = ["abanna <abanna@nerds.run>"]
 readme = "README.md"
@@ -39,9 +39,11 @@ requests = "*"
 tabulate = "^0.9.0"
 azure-devops = "^7.1.0b3"
 python-dotenv = "*"
-
 #pydantic = "^1"
 pydantic-settings="*"
+
+pydantic = "^2"
+
 emoji = "^2.8.0"
 
 [tool.poetry.group.docs]
@@ -78,7 +80,7 @@ pytest-cov = "*"
 locust = "*"
 
 [tool.poetry.scripts]
-odious_ado = "odious_ado.cli:main"
+odious-ado = "odious_ado.cli:main"
 
 [build-system]
 requires = ["poetry-core"]
