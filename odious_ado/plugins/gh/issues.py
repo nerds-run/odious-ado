@@ -220,11 +220,6 @@ def reaction_silliness(**kwargs):
         }
     }
     """
-
-
-
-
-
     pass
 
 
