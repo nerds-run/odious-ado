@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
 from functools import lru_cache
-from typing import Dict, List
-import uuid
 
 from dotenv import load_dotenv
-from pydantic import BaseModel, BaseSettings
+from pydantic import BaseSettings
 from pydantic.fields import Field
 
 from odious_ado import __name__ as app_name

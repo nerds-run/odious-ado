@@ -1,5 +1,4 @@
 import csv
-import json
 from pprint import pprint
 import os
 
