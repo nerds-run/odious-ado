@@ -1,9 +1,13 @@
 ---
+
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    # Sequence of patterns matched against refs/tags
+    tags:        
+      - v1
+      - v3.* # Push events to matching v1*, i.e. v1.0, v20.15.10
+  fork:
 
 permissions:
   issues: write
