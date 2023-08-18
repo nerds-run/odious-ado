@@ -7,8 +7,12 @@ from dotenv import load_dotenv
 from tabulate import tabulate
 from azure.devops.v7_1.work_item_tracking import CommentCreate
 
+#import sys
+#if "C:\\hackathon\\2023\\odious-ado" not in sys.path:
+#   sys.path.append("C:\\hackathon\\2023\\odious-ado")
+
 from odious_ado.settings import BaseConfig
-from odious_ado.plugins.ado import AdoClient
+from odious_ado.plugins.ado import *
 from odious_ado.plugins import gh
 
 
@@ -37,6 +41,29 @@ def info(ctx) -> None:
     # else:
     #     click.secho(tabulate(results, headers="keys", tablefmt="psql"))
 
+@ado.group("work-items")
+@click.pass_context
+def work_items(ctx):
+    pass
+
+@work_items.command("read-state")
+@click.argument('Item-ID')
+@click.pass_context
+def read_state(ctx,*args, **kwargs):
+    client = ctx.obj.get("client")
+    pprint(kwargs)
+    if len(kwargs) == 0:
+        click.secho("Work Item ID is required for this function")
+        return
+    work_item_array = []
+    for i,j in kwargs.items():
+        work_item_array.append(int(j))
+    if work_item_array is not None:
+        if client is None:
+            click.secho("Unable to get ado client.")
+        else:
+            for work_item in work_item_array:
+                click.secho(work_item, ": ", get_ADO_state(work_item))
 
 @ado.group("projects")
 @click.pass_context

@@ -3,25 +3,24 @@ import yaml
 from odious_ado.plugins.ado.client import AdoClient
 from azure.devops.v7_1.work_item_tracking.models import JsonPatchOperation
 
-def get_ADO_state(ADO_ID:int):
-    # Get State
+def get_ADO_effort(ADO_ID:int):
+    # Get Effort
     Connector = AdoClient()
     ADO_Item = Connector.get_work_item_by_id(ADO_ID)
-    State = ADO_Item.fields["System.State"]
-    return State
+    Effort = ADO_Item.fields["Microsoft.VSTS.Scheduling.StoryPoints"]
+    return Effort
 
-def set_ADO_state(ADO_ID, State):
-    # Get Current ADO State
-    ADO_State = get_ADO_state(ADO_ID)
-    # If state is different, set state
-    if ADO_State != State:
-        # TODO: Check to make sure state is valid by loading the mapping
+def set_ADO_effort(ADO_ID, Effort):
+    # Get Current ADO Effort
+    ADO_Effort = get_ADO_effort(ADO_ID)
+    # If Effort is different, set Effort
+    if ADO_Effort != Effort:
         # Set up update payload
         update_doc = [ 
             JsonPatchOperation(
                 op="add",
-                path="/fields/System.State",
-                value=State,
+                path="/fields/Microsoft.VSTS.Scheduling.StoryPoints",
+                value=Effort,
             )
         ]
         Connector = AdoClient()
