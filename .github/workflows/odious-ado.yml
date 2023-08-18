@@ -1,8 +1,10 @@
+---
+
 name: Adious-ado
 on:
   push:
     branches: [ main ]
-  fork:
+  pull_request:
     branches: [ main ]
 
 permissions:
