@@ -1,7 +1,6 @@
 name: main
 
-on:
-  push:
+on: [push, fork]
     tags:
       - "v*"
 
