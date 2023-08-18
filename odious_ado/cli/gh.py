@@ -128,14 +128,15 @@ def projects(ctx):
 @projects.command("ls")
 @click.pass_context
 def ls(ctx):
-    settings = BaseConfig.get_settings()
     _projects = gh.list_projects(ctx.obj['client'])
-
     if _projects is None:
         click.echo("No projects found.", color=True)
     else:
-        for project in _projects:
-            pprint(f"{projects.name} -- {project.id}")
+        if isinstance(_projects, list):
+            for project in _projects:
+                    click.echo(project)
+        else:
+            click.echo(_projects)
 
 
 @projects.command("sync")
