@@ -1,34 +1,32 @@
-name: GH-Release
+# name: GH-Release
 
-on:
-  push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
-  pull_request:
-    branches: ["main"]
+# on:
+#   push:
+#     # Sequence of patterns matched against refs/tags
+#     tags:
+#       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+#   pull_request:
+#       branches: ["main"]     
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-  
-  # Sets permissions of the OA_GITHUB_SECRET to allow deployment to GitHub Pages
-permissions:
-  issues: write
-  pull-requests: read
-  security-events: write
+#   workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Generate Changelog
-        run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
-      - name: Release
-        uses: nerds-run/odious-ado@v1.4
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: |
-            Release.txt
-            LICENSE
+# permissions:
+#   issues: write
+#   pull-requests: read
+#   security-events: write
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+#       - name: Generate Changelog
+#         run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
+#       - name: Release
+#         uses: nerds-run/odious-ado@v1.3
+#         if: startsWith(github.ref, 'refs/tags/')
+#         with:
+#           files: |
+#             Release.txt
+#             LICENSE
