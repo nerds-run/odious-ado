@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
 from pprint import pprint
 import click
+import emoji
 
 #import sys
 #if "C:\\hackathon\\2023\\odious-ado" not in sys.path:
@@ -11,7 +13,7 @@ from odious_ado.settings import BaseConfig
 from odious_ado.plugins.ado import *
 
 
-@click.group(name="ado")
+@click.group(name="ado", help="Azure DeveOps utilities")
 @click.pass_context
 def ado(ctx):
     ctx.ensure_object(dict)
@@ -47,19 +49,21 @@ def work_items(ctx):
 @click.pass_context
 def read_state(ctx,*args, **kwargs):
     client = ctx.obj.get("client")
-    pprint(kwargs)
-    if len(kwargs) == 0:
+
+    if kwargs is None or len(kwargs) == 0:
         click.secho("Work Item ID is required for this function")
-        return
-    work_item_array = []
-    for i,j in kwargs.items():
-        work_item_array.append(int(j))
-    if work_item_array is not None:
+        sys.exit(1)
+    for v in kwargs.values():
+        try:
+            v = int(v)
+        except Exception:
+            raise Exception("wtf pass me a int")
+
         if client is None:
             click.secho("Unable to get ado client.")
         else:
-            for work_item in work_item_array:
-                click.echo(f"{work_item} : {get_ADO_state(work_item)}")
+            click.echo(f"{v} : {get_ADO_state(v)}")
+
 
 
 @ado.group("projects")
@@ -97,16 +101,15 @@ def get_items(ctx):
         click.secho("Unable to get ado client.")
     else:
         get_projects_response = client.get_core_client.get_projects()
-        if isinstance(get_projects_response, list):
-            get_projects_response = None
 
-        for i in client.get_work_item_client.get_recent_activity_data():
-            if i.team_project == OA_ADO_PROJECT_NAME:
-                print(i.id)
-                pprint(i.title)
-                pprint(i.state)
-                pprint(i.identity_id)
+        if get_projects_response is None:
+            click.echo("Was unable to find any projects for you brah!", color=True)
 
+        else:
+            for i in client.get_work_item_client:
+
+
+                click.echo(f"{emoji.emojize(':robot:')} -=-{i.id} -=- {i.url}")
             # else:
             #     if get_projects_response.continuation_token is not None and get_projects_response.continuation_token != "":
             #         # Get the next page of projects
