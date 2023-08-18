@@ -8,5 +8,7 @@ __all__ = [
     "get_issues",
     "apply_labels",
     "get_project",
-    "list_projects"
+    "list_projects",
+    "issues_with_database_index",
+    "update_field"
 ]
