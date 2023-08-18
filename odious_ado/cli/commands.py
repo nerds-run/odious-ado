@@ -61,7 +61,7 @@ def version(ctx):
 @click.pass_context
 def sync_boards(ctx, ado_id: int, item_state: str):
     from odious_ado.plugins import gh
-    # the experctation is that we are getting passed a id + + state
+    # the expectation is that we are getting passed a id + + state
     ctx.ensure_object(dict)
 
     settings = BaseConfig.get_settings()
