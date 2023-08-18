@@ -1,10 +1,8 @@
 on:
   push:
     branches: [ main ]
-      tags:
-        - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
   fork:
-    branches: [ main ]        
+    branches: [ main ]
 
 permissions:
   issues: write
@@ -18,8 +16,6 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
-      - name: version
-        run: echo "::set-output name=version::$(./bin/odious-ado --version)"    
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create Release
@@ -28,8 +24,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.OA_GITHUB_SECRET }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v1.2 # move me
-          release_name: Release v1.2
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           body: |
             Changes in this Release
             - what up!!
