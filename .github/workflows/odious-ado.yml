@@ -1,35 +1,37 @@
-name: Adious-ado
-on:
-  push:
-    branches: [ main ]
-  fork:
-    branches: [ main ]
+# ---
 
-permissions:
-  issues: write
-  pull-requests: read
-  security-events: write  
+# name: Adious-ado
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
 
-jobs:
-  build:
-    name: build-odious-ado
-    runs-on: ubuntu-latest
+# permissions:
+#   issues: write
+#   pull-requests: read
+#   security-events: write  
 
-    steps:
-    # - name: Setup Python
-    #   uses: actions/setup-python@v4.3.0
-    #   with:
-    #     # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
-    #     python-version: '3.11'
-    #     # File containing the Python version to use. Example:
-    #     python-version-file: .python-version # optional
-    - name: Setup just
-      uses: extractions/setup-just@v1
-    - name: Installing Dependencies
-      run: just dev install
-    - name: odious_ado
-      uses: nerds-run/odious-ado@v1.1
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SEARCH_QUERY: 'repo:owner/repo is:issue -reason:"not planned"'
+# jobs:
+#   build:
+#     name: build-odious-ado
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     # - name: Setup Python
+#     #   uses: actions/setup-python@v4.3.0
+#     #   with:
+#     #     # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
+#     #     python-version: '3.11'
+#     #     # File containing the Python version to use. Example:
+#     #     python-version-file: .python-version # optional
+#     - name: Setup just
+#       uses: extractions/setup-just@v1
+#     - name: Installing Dependencies
+#       run: just dev install
+#     - name: odious_ado
+#       uses: nerds-run/odious-ado@v1.1
+#       env:
+#         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         SEARCH_QUERY: 'repo:owner/repo is:issue -reason:"not planned"'
             

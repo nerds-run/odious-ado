@@ -110,7 +110,7 @@ def issues_status(ctx, update: bool = False):
         sweet = [
             {
             "project_id": "PVT_kwDOB3mz7c4AUIpb",
-            "field_did": "PVTF_lADOB3mz7c4AUIpbzgM3PuM",
+            "field_id": "PVTF_lADOB3mz7c4AUIpbzgM3PuM",
             "item_id": 'a4bb9822',
             "new_value": "poop"
 

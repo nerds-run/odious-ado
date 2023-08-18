@@ -1,15 +1,18 @@
+---
+
+name: Create Release
+
 on:
   push:
     branches: [ main ]
-  fork:
-    branches: [ main ]
+    # Sequence of patterns matched against refs/tags
+    tags:        
+      - 'v1.*' # Push events to matching v1*, i.e. v1.0, v20.15.10
 
 permissions:
   issues: write
   pull-requests: read
   security-events: write
-  
-name: Create Release
 
 jobs:
   build:
