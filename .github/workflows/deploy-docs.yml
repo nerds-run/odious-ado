@@ -32,7 +32,7 @@ jobs:
             - name: Setup Pages
               uses: actions/configure-pages@v3
               with:
-                token: ${{ secrets.OA_GITHUB_SECRET }}
+                token: ${{ secrets.GITHUB_TOKEN }}
             - name: Setup Python
               uses: actions/setup-python@v4.3.0
               with:
