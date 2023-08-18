@@ -9,6 +9,7 @@ import sys
 
 from odious_ado.cli.commands import main
 
+import platform
 
 operating_system = platform.system()
 if operating_system.lower() == "linux":

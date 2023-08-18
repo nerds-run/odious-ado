@@ -1,11 +1,14 @@
 import csv
 import json
+from pprint import pprint
 import os
 
 import click
 from github import Github
+from tabulate import tabulate
 
 from odious_ado.settings import BaseConfig
+from odious_ado.plugins import gh
 
 
 ###
@@ -24,6 +27,120 @@ def github(ctx):
     pass
 
 
+@github.group("issues")
+@click.pass_context
+def issues(ctx):
+    pass
+
+
+@issues.command("ls")
+@click.pass_context
+def ls(ctx):
+    settings = BaseConfig.get_settings()
+    project_issues = gh.get_issues(ctx.obj['client'])
+
+    for issue in project_issues:
+
+        pprint(f"{issue.title} -- {issue.id}")
+
+
+@issues.group("labels")
+@click.pass_context
+def issue_labels(ctx):
+    pass
+
+
+@issue_labels.command("apply")
+@click.pass_context
+def apply_labels(ctx):
+    settings = BaseConfig.get_settings()
+    issues = gh.get_issues(ctx.obj['client'])
+    for issue in issues:
+        # issue.
+        issue.add_to_labels(f"{settings.ADO_ORG_ID}/{settings.OA_ADO_PROJECT_NAME}")
+
+
+@issue_labels.command("sync")
+@click.pass_context
+def sync_labels(ctx):
+    settings = BaseConfig.get_settings()
+    client = ctx.obj['client']
+
+    labels: dict = {
+        "New": None,
+        "Approved": "Todo",
+        "Active": "In Progress",
+        "Resolved": "Done",
+        "Committed": "Todo",
+        "Done": "Done",
+        "Blocked": "In Progress",
+        "Accepted": "Todo",
+        "Closed": "Done",
+        "Removed": None,
+        "Archived": None
+    }
+
+    gh.create_labels(client, labels=labels)
+
+
+@issues.command("status")
+@click.option(
+    "-u",
+    "--update",
+    help="update issues status in gh projects and ado",
+    default=None,
+    required=False,
+    type=bool,
+)
+@click.pass_context
+def issues_status(ctx, update: bool = False):
+    settings = BaseConfig.get_settings()
+
+    project_list = gh.list_projects(ctx.obj.get('client'))
+    gh_org, repo = settings.GITHUB_REPOSITORY.split('/')
+    gh_issues = gh.get_i_issues(organization=gh_org, repository_name=repo)
+
+    pprint(project_list)
+    print("-==-=--=-========-=-=-=-")
+    pprint(gh_issues)
+    print("-==-=--=-========-=-=-=-")
+    # gh.change_issue_status(project_id="", item_id="", field_id="", opt_id="")
+
+
+@github.group("projects")
+@click.pass_context
+def projects(ctx):
+    pass
+
+
+@projects.command("ls")
+@click.pass_context
+def ls(ctx):
+    settings = BaseConfig.get_settings()
+    _projects = gh.list_projects(ctx.obj['client'])
+
+    if _projects is None:
+        click.echo("No projects found.", color=True)
+    else:
+        for project in _projects:
+            pprint(f"{projects.name} -- {project.id}")
+
+
+@projects.command("sync")
+@click.pass_context
+def add_issues_to_project(ctx):
+    client = ctx.obj.get('client')
+    settings = BaseConfig.get_settings()
+    gh_org, repo = settings.GITHUB_REPOSITORY.split('/')
+    gh_issue_ids = gh.get_i_issue_ids(organization=gh_org, repository_name=repo)
+    project_id = gh.list_projects(client)
+
+    for issue_id in gh_issue_ids:
+        gh.add_issue_to_project(project_id=project_id, content_id=issue_id)
+        # gh.apply_label()
+        # gh.apply_label(client, project_id, item_id=issue_id)
+
+
 @github.command('pull-request-comment')
 @click.pass_context
 def pull_request_comment(ctx):
@@ -32,8 +149,6 @@ def pull_request_comment(ctx):
     pr = repo.get_pull(1)
 
     print(f"Pull Request: {pr.review_comments} Merge Commit ID: {pr.merge_commit_sha}")
-
-
 
     plan_output = """
         Odious ADO to the rescue!

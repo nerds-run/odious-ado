@@ -35,10 +35,11 @@ class BaseConfig(BaseSettings):
 
     # Github Settings
     GITHUB_ACCESS_TOKEN: str = Field(..., env='OA_GITHUB_TOKEN')
-
+    GITHUB_REPOSITORY: str ='nerds-run/odious-ado'
     # Azure Settings
     ADO_PAT: str = os.getenv("OA_ADO_PAT")
     ADO_ORG_ID: str = os.getenv("OA_ADO_ORG_ID", "")
+    OA_ADO_PROJECT_NAME: str = os.getenv("OA_ADO_PROJECT_NAME", "")
     ADO_FQDN: str = f"https://dev.azure.com"
     ADO_ORGANIZATION_URL: str = f"{ADO_FQDN}/{ADO_ORG_ID}"
 

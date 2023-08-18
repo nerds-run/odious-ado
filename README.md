@@ -79,3 +79,74 @@ allow for a smooth ending and time to focus on a nice video presentation.
 
 Main things that we need to do.  Get data from workflow action yaml. Use that data to map fields and labels to 
 ado fields etc. 
+
+### Useful sites
+
+when using github graphql api this site is kind of helpful
+(graphql explorer)[https://docs.github.com/en/graphql/overview/explorer]
+
+```graphql
+query newName {
+  repository(owner:"nerds-run", name:"odious-ado") {
+    issues(last:20, states:OPEN) {
+      edges {
+        node {
+          id
+          title
+          url
+          labels(first:5) {
+            edges {
+              
+              node {
+                id
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation AddReactionToIssue {
+  addReaction(input:{subjectId:"I_kwDOKHh5ys5ufKQq",content:EYES}) {
+    reaction {
+      content
+    }
+    subject {
+      id
+    }
+  }
+}
+
+mutation pleaseWork ($project_id: ID! $content_id: ID!) {
+        addProjectV2ItemById(
+            input: {
+                projectId: $project_id contentId: $content_id}
+        ) 
+        {
+        item {
+            id
+        }
+    }
+}
+
+mutation turtle {
+  updateProjectV2ItemFieldValue(
+    input: {
+      projectId: "PVT_kwDOB3mz7c4AUIpb"
+      itemId: "PVTI_lADOB3mz7c4AUIpbzgIm-CY"
+      fieldId: "PVTSSF_lADOB3mz7c4AUIpbzgM3Pt4"
+      value: { 
+        singleSelectOptionId: "603cef85"        
+      }
+    }
+  )
+  {
+    projectV2Item {
+     id
+	}
+  }}
+
+```
