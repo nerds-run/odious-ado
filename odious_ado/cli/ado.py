@@ -3,9 +3,6 @@ import json
 import os
 from pprint import pprint
 import click
-from dotenv import load_dotenv
-from tabulate import tabulate
-from azure.devops.v7_1.work_item_tracking import CommentCreate
 
 #import sys
 #if "C:\\hackathon\\2023\\odious-ado" not in sys.path:
@@ -96,6 +93,7 @@ def list_projects(ctx):
 
             if isinstance(get_projects_response, list):
                 get_projects_response = None
+<<<<<<< HEAD
 
         #for i in client.get_work_item_client.get_recent_activity_data():
         #    print(i.id)
@@ -141,3 +139,12 @@ def get_items(ctx):
                 pprint(i.title)
                 pprint(i.state)
                 pprint(i.identity_id)
+=======
+            # else:
+            #     if get_projects_response.continuation_token is not None and get_projects_response.continuation_token != "":
+            #         # Get the next page of projects
+            #         get_projects_response = client.get_core_client.get_projects(
+            #             continuation_token=get_projects_response.continuation_token)
+            #     else:
+            #         # All projects have been retrieved
+>>>>>>> 36882b9 (removing  comments)

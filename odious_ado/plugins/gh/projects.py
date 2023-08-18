@@ -150,7 +150,7 @@ def update_field(dnd):
             itemId: "PVTI_lADOB3mz7c4AUIpbzgIn0Oo"
             fieldId: "PVTSSF_lADOB3mz7c4AUIpbzgM3Pt4"
             value: {
-              singleSelectOptionId: "f75ad846"
+              singleSelectOptionId: "a4bb9822"
            }
         }
     )
