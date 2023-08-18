@@ -31,5 +31,5 @@ jobs:
       uses: nerds-run/odious-ado@v1.0
       env:
         GH_TOKEN: ${{ secrets.OA_GITHUB_SECRET }}
-        SEARCH_QUERY: 'repo:owner/repo is:issue created:${{ env.last_month }} -reason:"not planned"'
+        SEARCH_QUERY: 'repo:owner/repo is:issue -reason:"not planned"'
             

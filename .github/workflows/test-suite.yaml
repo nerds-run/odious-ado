@@ -7,7 +7,7 @@ on:
         branches: ["main"]
         pull_request:
             branches: ["main"]
-            # Sets permissions of the OA_GITHUB_SECRET
+            # Sets permissions of the GITHUB_TOKEN
 permissions:
     contents: read
     pages: write
