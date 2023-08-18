@@ -104,13 +104,14 @@ def issues_status(ctx, update: bool = False):
 
     # pprint(dir(gh_issues))
     # ($project_id: ID! $field_id: ID! $item_id: ID! $new_value: String!)
+    # "field_id": "PVTF_lADOB3mz7c4AUIpbzgM3Ptw",
     for i in gh_issues.values():
         pprint(i)
         sweet = [
             {
             "project_id": "PVT_kwDOB3mz7c4AUIpb",
-            "field_id": "PVTF_lADOB3mz7c4AUIpbzgM3Ptw",
-            "item_id" : 'a4bb9822',
+            "field_id": "PVTF_lADOB3mz7c4AUIpbzgM3PuM",
+            "item_id": 'a4bb9822',
             "new_value": "poop"
 
             }

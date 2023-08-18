@@ -142,6 +142,14 @@ def update_field(dnd):
         }
       }
     """
+    # 'options': [{'id': 'f75ad846', 'name': 'Todo'},
+    #             {'id': 'a4bb9822', 'name': 'poop'},
+    #             {'id': '603cef85', 'name': 'pee'},
+    #             {'id': '47fc9ee4',
+    #              'name': 'In Progress'},
+    #             {'id': '98236657',
+    #              'name': 'Done'}]},
+
     not_pretty = """
     mutation turtle {
         updateProjectV2ItemFieldValue(
@@ -150,6 +158,7 @@ def update_field(dnd):
             itemId: "PVTI_lADOB3mz7c4AUIpbzgIn0Oo"
             fieldId: "PVTSSF_lADOB3mz7c4AUIpbzgM3Pt4"
             value: {
+
               singleSelectOptionId: "a4bb9822"
            }
         }
