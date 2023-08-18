@@ -64,6 +64,26 @@ def read_state(ctx,*args, **kwargs):
         else:
             click.echo(f"{v} : {get_ADO_state(v)}")
 
+@work_items.command("read-effort")
+@click.argument("item_id", type=click.STRING, required=True)
+@click.pass_context
+def read_state(ctx,*args, **kwargs):
+    client = ctx.obj.get("client")
+
+    if kwargs is None or len(kwargs) == 0:
+        click.secho("Work Item ID is required for this function")
+        sys.exit(1)
+    for v in kwargs.values():
+        try:
+            v = int(v)
+        except Exception:
+            raise Exception("wtf pass me a int")
+
+        if client is None:
+            click.secho("Unable to get ado client.")
+        else:
+            click.echo(f"{v} : {get_ADO_effort(v)}")
+
 @ado.group("projects")
 @click.pass_context
 def projects(ctx):
