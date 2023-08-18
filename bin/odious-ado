@@ -10,9 +10,6 @@ from multiprocessing import freeze_support
 import platform
 import sys
 
-# The following 2 lines are for Patrick to debug on his laptop.  Everyone else leave them commented out.  and yes, this is hella jank
-if "C:\\hackathon\\2023\\odious-ado" not in sys.path:
-   sys.path.append("C:\\hackathon\\2023\\odious-ado")
 
 from odious_ado.cli.commands import main
 
