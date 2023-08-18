@@ -28,7 +28,7 @@ jobs:
     - name: Installing Dependencies
       run: just dev install
     - name: odious_ado
-      uses: nerds-run/odious-ado@v1.0
+      uses: nerds-run/odious-ado@v1.1
       env:
         GH_TOKEN: ${{ secrets.OA_GITHUB_SECRET }}
         SEARCH_QUERY: 'repo:owner/repo is:issue -reason:"not planned"'
