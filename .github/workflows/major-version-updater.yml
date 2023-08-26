@@ -1,5 +1,6 @@
 ---
 name: Major Version Updater
+
 # Whenever a new release is made, push a major version tag
 on:
   release:

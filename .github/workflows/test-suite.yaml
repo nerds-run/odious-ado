@@ -2,11 +2,12 @@
 name: Run Test Suite
 
 on:
-    # Runs on pushes targeting the default branch
-    push:
-        branches: ["main"]
-    pull_request:
-        branches: ["main"]
+  # Runs on pushes targeting the default branch  
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 # Sets permissions of the GITHUB_TOKEN
 permissions:
     contents: read
@@ -14,30 +15,30 @@ permissions:
     id-token: write
 
 jobs:
-    test-suite:
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-            - name: Setup Python
-              uses: actions/setup-python@v4.3.0
-              with:
-                # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
-                python-version: '3.11'
-            # File containing the Python version to use. Example: .python-version
-            # python-version-file: # optional
-            - name: Setup just
-              uses: extractions/setup-just@v1
-            - name: Installing Dependencies
-              run: just dev install
-            - name: Running Formatter
-              run: just format
-#       - name: Running Type Checking
-#         run: just type-checks
-            - name: Running Linter
-              run: just lint
-            - name: Running Unit Tests
-              run: just unit-test
+  test-suite:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4.3.0
+        with:
+          # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
+          python-version: '3.11'
+      # File containing the Python version to use. Example: .python-version
+      # python-version-file: # optional
+      - name: Setup just
+        uses: extractions/setup-just@v1
+      - name: Installing Dependencies
+        run: just dev install
+      - name: Running Formatter
+        run: just format
+      # - name: Running Type Checking
+      #   run: just type-checks
+      - name: Running Linter
+        run: just lint
+      - name: Running Unit Tests
+        run: just unit-test
