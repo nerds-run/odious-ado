@@ -42,3 +42,5 @@ jobs:
           files: |
             ${{ github.workspace }}-CHANGELOG.txt
             LICENSE
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
