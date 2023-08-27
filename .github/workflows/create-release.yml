@@ -23,7 +23,6 @@ jobs:
         with:
           release_branch: cus
           release_strategy: tag
-          version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
       - name: Generate Changelog
