@@ -8,10 +8,7 @@ on:
   pull_request:
       branches: ["main"]
 
-permissions:
-  issues: write
-  pull-requests: read
-  security-events: write
+permissions: write-all
 
 jobs:
   build:

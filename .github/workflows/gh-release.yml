@@ -10,10 +10,7 @@ on:
 
   workflow_dispatch:
 
-permissions:
-  issues: write
-  pull-requests: read
-  security-events: write
+permissions: write-all
 
 jobs:
   build:
