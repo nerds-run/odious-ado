@@ -2,8 +2,16 @@
 name = $(odious-ado)
 version = $(0.1.0)
 description = $()
-authors = ["abanna <abanna@nerds.run>"]
-maintainers = ["abanna <abanna@nerds.run>"]
+authors = [
+  {name = "abanna", email = "abanna@nerds.run" },
+  {name = "blackcodeking912", email = "niko@nerds.run" },
+  {name = "blackcodeking912", email = "niko@nrbglobalsolutions.com" }
+]
+maintainers = [
+  {name = "abanna", email = "abanna@nerds.run" },
+  {name = "blackcodeking912", email = "niko@nerds.run" },
+  {name = "blackcodeking912", email = "niko@nrbglobalsolutions.com" }
+]
 readme = "README.md"
 include = ["CHANGELOG.md"]
 documentation = "https://pages.github.io/"
