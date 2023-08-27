@@ -36,11 +36,9 @@ jobs:
       - name: Create GitHub release
         uses: Roang-zero1/github-create-release-action@v3
         with:
-          created_tag: 'v${{ github.ref }}'
-          #version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
-          release_text: What up, changes!!
-          files: |
-            ${{ github.workspace }}-CHANGELOG.txt
-            LICENSE
+          created_tag: v$RESOLVED_VERSION
+          version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
+          release_title: v$RESOLVED_VERSION
+          changelog_file: ${{ github.workspace }}-CHANGELOG.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
