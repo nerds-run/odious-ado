@@ -37,7 +37,7 @@ jobs:
         uses: Roang-zero1/github-create-release-action@v3
         with:
           created_tag: 'v${{ env.version }}'          
-          version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
+          # version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
           release_text: ${{ github.workspace }}-CHANGELOG.txt
           files: |
             ${{ github.workspace }}-CHANGELOG.txt
