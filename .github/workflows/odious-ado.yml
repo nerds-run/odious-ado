@@ -20,13 +20,14 @@ jobs:
               with:
                 fetch-depth: '0'
 
-            - name: Minor verison for each merge
+            - name: 'Minor verison for merge: dry run'
               id: dryRunTag
               uses: anothrNick/github-tag-action@1.36.0
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 WITH_V: true
                 DRY_RUN: true
+                INITIAL_VERSION: 0.1.0
 
             - name: New tag echo
               run: |
@@ -38,12 +39,30 @@ jobs:
                 
             - name: Current part incremented
               run: |
-                echo "The version increment is: ${{steps.dryRunTag.outputs.part}}"
+                echo "The version increment is: ${{ steps.dryRunTag.outputs.part }}"
 
-            - name: Minor verison for each merge
+            - name: Generate Changelog
+              run: echo "# Good things have arrived. Release tag [ ${{ steps.dryRunTag.outputs.new_tag }} ] or github.ref [ ${{ github.ref }} ]" > ${{ github.workspace }}-CHANGELOG.txt.
+
+            - name: Create Release
+              id: createRelease
+              uses: actions/create-release@v1
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+              with:
+                tag_name: v${{ steps.dryRunTag.outputs.new_tag }}
+                release_name: v${{ steps.dryRunTag.outputs.new_tag }}
+                body: |
+                  # Changelog
+                  $CHANGES
+                draft: false
+                prerelease: true                
+
+            - name: Minor version for merge
               id: finalRunTag
               uses: anothrNick/github-tag-action@1.36.0
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 WITH_V: true
+                INITIAL_VERSION: 0.1.0
             
