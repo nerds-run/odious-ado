@@ -19,5 +19,5 @@ jobs:
           major=${version%%.*}
           git config --global user.name 'blackcodeking912'
           git config --global user.email 'blackcodeking912@users.noreply.github.com'          
-          git tag -fa ${major} -m "Update major version tag"
-          git push origin ${major} --force
+          git tag -fa v${major} -m "Update major version tag"
+          git push origin v${major} --force
