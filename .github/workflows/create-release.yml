@@ -24,9 +24,9 @@ jobs:
           release_branch: main
           release_strategy: tag
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
       - name: Generate Changelog
-        run: echo "# Good things have arrived. Release tag [ ${{ github.event.release.tag_name }} ] or github.ref [ ${{ github.ref }} ]" > ${{ github.workspace }}-CHANGELOG.txt.
+        run: echo "# Good things have arrived. Release tag [ ${{ steps.tag_and_prepare_release.outputs.tag }} ] or github.ref [ ${{ github.ref }} ]" > ${{ github.workspace }}-CHANGELOG.txt.
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1

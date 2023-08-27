@@ -29,16 +29,16 @@ jobs:
       #       github.rest.git.createRef({
       #         owner: context.repo.owner,
       #         repo: context.repo.repo,
-      #         ref: 'refs/tags/v${{ env.VERSION }}',
+      #         ref: 'refs/tags/v${{ env.version }}',
       #         sha: context.sha
       #       })
 
       - name: Create GitHub release
         uses: Roang-zero1/github-create-release-action@v3
         with:
-          created_tag: 'v${{ env.VERSION }}'          
-          version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
-          release_text: ${{ github.workspace }}-CHANGELOG.txt
+          created_tag: 'v${{ github.ref }}'
+          #version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
+          release_text: What up, changes!!
           files: |
             ${{ github.workspace }}-CHANGELOG.txt
             LICENSE
