@@ -1,0 +1,61 @@
+name: Bump release version
+
+on:
+    push:
+        branches: [ main ]
+        tags:
+          - 'v[0-9]+.[0-9]+.[0-9]+.*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    pull_request:
+      types: [ closed ]        
+
+concurrency: production
+
+permissions: write-all
+
+jobs:
+    Patch:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                fetch-depth: '0'
+
+            - name: 'Minor verison dry run'
+              id: dryRunTag
+              uses: anothrNick/github-tag-action@1.36.0
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                WITH_V: true
+                DRY_RUN: true
+                INITIAL_VERSION: 0.1.0
+
+            - name: Current tag echo
+              run: |
+                echo "Current tag version number is: ${{steps.dryRunTag.outputs.tag}}"
+                                
+            - name: New tag echo
+              run: |
+                echo "Next tag version number is: ${{steps.dryRunTag.outputs.new_tag}}"
+                
+            - name: Current part incremented
+              run: |
+                echo "The version increment is: ${{ steps.dryRunTag.outputs.part }}"
+
+            - name: Create Release
+              uses: softprops/action-gh-release@v1
+              with:
+                tag_name: ${{ steps.dryRunTag.outputs.new_tag }}
+                token: ${{ secrets.GITHUB_TOKEN }}
+                generate_release_notes: true
+                draft: false
+                prerelease: true
+              env:
+                GITHUB_REPOSITORY: nerds-run/odious-ado
+
+            - name: Minor version
+              id: finalRunTag
+              uses: anothrNick/github-tag-action@1.36.0
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                WITH_V: true
+                INITIAL_VERSION: 0.1.0
