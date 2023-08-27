@@ -4,7 +4,7 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'v*.*.*' # Push events to matching v*, i.e. v1.0, v20.15.10
   pull_request:
       branches: [ main ]
 
@@ -17,6 +17,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Tag and prepare release
+        id: tag_and_prepare_release
+        uses: K-Phoen/semver-release-action@v1.3.1
+        with:
+          release_branch: cus
+          release_strategy: tag
+          version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
       - name: Generate Changelog
         run: echo "# Good things have arrived. Release tag [ ${{ github.event.release.tag_name }} ] or github.ref [ ${{ github.ref }} ]" > ${{ github.workspace }}-CHANGELOG.txt.
       - name: Create Release
@@ -25,8 +34,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v${{ github.ref }}
-          release_name: v${{ github.ref }}
+          tag_name: ${{ steps.tag_and_prepare_release.outputs.tag }}
+          version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+          
+          release_name: ${{ steps.tag_and_prepare_release.outputs.tag }}
+          created_tag: ${{ steps.tag_and_prepare_release.outputs.tag }}
           body: |
             Changes in this Release
             - what up, changes!!
