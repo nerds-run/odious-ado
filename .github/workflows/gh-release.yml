@@ -21,7 +21,7 @@ jobs:
       - name: Generate Changelog
         run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
       - name: Release
-        uses: nerds-run/odious-ado@${{ github.event.release.tag_name }}
+        uses: nerds-run/odious-ado@v[0-9]+.*
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
