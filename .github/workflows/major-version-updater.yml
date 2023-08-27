@@ -20,9 +20,9 @@ jobs:
       - name: version
         id: version
         run: |
-          tag=${GITHUB_REF/refs\/tags\//}
+          tag=${GITHUB_REF#refs/tags/}
           version=${tag#v}
-          major=${version%%.*}
+          major=${version%%.*}          
           echo "tag=${tag}" >> "$GITHUB_OUTPUT"
           echo "version=${version}" >> "$GITHUB_OUTPUT"
           echo "major=${major}" >> "$GITHUB_OUTPUT"
