@@ -1,44 +1,44 @@
-name: Create Release
+# name: Create Release
 
-on:
-  push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*.*.*' # Push events to matching v*, i.e. v1.0, v20.15.10
-  pull_request:
-      types: [ closed ]
+# on:
+#   push:
+#     # Sequence of patterns matched against refs/tags
+#     tags:
+#       - 'v*.*.*' # Push events to matching v*, i.e. v1.0, v20.15.10
+#   pull_request:
+#       types: [ closed ]
 
-permissions: write-all
+# permissions: write-all
 
-jobs:
-  build:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Tag and prepare release
-        id: tag_and_prepare_release
-        uses: K-Phoen/semver-release-action@v1.3.1
-        with:
-          release_branch: main
-          release_strategy: tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
-      - name: Generate Changelog
-        run: echo "# Good things have arrived. Release tag [ ${{ steps.tag_and_prepare_release.outputs.tag }} or v$RESOLVED_VERSION] or github.ref [ ${{ github.ref }} ]" > ${{ github.workspace }}-CHANGELOG.txt.
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: v$RESOLVED_VERSION
-          version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+          
-          release_name: v$RESOLVED_VERSION
-          created_tag: v$RESOLVED_VERSION
-          body: |
-            Changes in this Release
-            - what up, changes!!
-          draft: false
-          prerelease: true
+# jobs:
+#   build:
+#     name: Create Release
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#       - name: Tag and prepare release
+#         id: tag_and_prepare_release
+#         uses: K-Phoen/semver-release-action@v1.3.1
+#         with:
+#           release_branch: main
+#           release_strategy: tag
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
+#       - name: Generate Changelog
+#         run: echo "# Good things have arrived. Release tag [ ${{ steps.tag_and_prepare_release.outputs.tag }} or v$RESOLVED_VERSION] or github.ref [ ${{ github.ref }} ]" > ${{ github.workspace }}-CHANGELOG.txt.
+#       - name: Create Release
+#         id: create_release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#         with:
+#           tag_name: v$RESOLVED_VERSION
+#           version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+          
+#           release_name: v$RESOLVED_VERSION
+#           created_tag: v$RESOLVED_VERSION
+#           body: |
+#             Changes in this Release
+#             - what up, changes!!
+#           draft: false
+#           prerelease: true

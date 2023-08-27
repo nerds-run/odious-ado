@@ -1,37 +1,44 @@
-# ---
+name: Auto Tag Release
+on:
+    push:
+        branches: [ main ]
 
-# name: Adious-ado
-# on:
-#   push:
-#     branches: [ main ]
-#   pull_request:
-#     branches: [ main ]
+concurrency: production
 
-# permissions:
-#   issues: write
-#   pull-requests: read
-#   security-events: write  
+permissions: write-all
 
-# jobs:
-#   build:
-#     name: build-odious-ado
-#     runs-on: ubuntu-latest
+jobs:
+    Patch:
+        runs-on: unbuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                fetch-depth: '0'
 
-#     steps:
-#     # - name: Setup Python
-#     #   uses: actions/setup-python@v4.3.0
-#     #   with:
-#     #     # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
-#     #     python-version: '3.11'
-#     #     # File containing the Python version to use. Example:
-#     #     python-version-file: .python-version # optional
-#     - name: Setup just
-#       uses: extractions/setup-just@v1
-#     - name: Installing Dependencies
-#       run: just dev install
-#     - name: odious_ado
-#       uses: nerds-run/odious-ado@v1.1
-#       env:
-#         GH_TOKEN: ${{ secrets.OA_GITHUB_SECRET }}
-#         SEARCH_QUERY: 'repo:owner/repo is:issue -reason:"not planned"'
+            - name: Minor verison for each merge
+              id: dryRunTag
+              uses: anothrNick/github-tag-action@1.36.0
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                WITH_V: true
+                DRY_RUN: true
+
+            - name: New tag echo
+              run: |
+                echo "Next tag version number is: ${{steps.dryRunTag.outputs.new_tag}}"
+
+            - name: Current tag echo
+              run: |
+                echo "Current tag version number is: ${{steps.dryRunTag.outputs.tag}}"
+                
+            - name: Current part incremented
+              run: |
+                echo "The version increment is: ${{steps.dryRunTag.outputs.part}}"
+
+            - name: Minor verison for each merge
+              id: finalRunTag
+              uses: anothrNick/github-tag-action@1.36.0
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                WITH_V: true
             
