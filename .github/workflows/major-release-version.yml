@@ -3,9 +3,9 @@ name: Move Major Release Tag
 # Whenever a new release is made, push a major version tag
 on:
   pull_request:
-    branches: [ main ]
+    types: [ closed ]
   release:
-    types: [ created, published ]
+    types: [ created ]
 
 permissions: write-all
 
