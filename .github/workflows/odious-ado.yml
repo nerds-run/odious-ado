@@ -52,14 +52,17 @@ jobs:
             #     draft: false
             #     prerelease: false
 
-            - name: Generate Changelog
-              run: echo "# Good things have arrived" > ${{ github.workspace }}-CHANGELOG.txt
-    
             - name: Create Release
               uses: softprops/action-gh-release@v1
               with:
-                body_path: ${{ github.workspace }}-CHANGELOG.txt
+                tag_name: ${{ steps.dryRunTag.outputs.new_tag }}
                 token: ${{ secrets.GITHUB_TOKEN }}
+                generate_release_notes: true
+                draft: false
+                prerelease: true
+                files: |
+                  ${{ github.workspace }}-CHANGELOG.txt
+                  LICENSE
               env:
                 GITHUB_REPOSITORY: nerds-run/odious-ado
 
