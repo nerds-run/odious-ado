@@ -30,7 +30,7 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: 'refs/tags/v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+',
+              ref: 'refs/tags/v${{ env.version }}',
               sha: context.sha
             })
 
