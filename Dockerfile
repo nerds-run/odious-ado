@@ -1,4 +1,4 @@
-FROM    python:3.11.4-slim-bookworm AS builder
+FROM    python:3.12.0-slim-bookworm AS builder
 LABEL   org.opencontainers.image.authors="nerds.run"
 ENV     REFRESHED_AT 2023/08/11
 
@@ -26,7 +26,7 @@ VOLUME /tmp
 RUN just build
 
 ################################
-FROM python:3.11.4-slim-bookworm
+FROM python:3.12.0-slim-bookworm
 
 
 # Application environment variables.
